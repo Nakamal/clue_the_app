@@ -1,0 +1,2 @@
+class SheetInfo < ApplicationRecord
+end
