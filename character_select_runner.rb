@@ -2,13 +2,11 @@ require 'http'
 
 
 def character_select(character)
-  puts "**************************************"
   puts
   puts character["name"]
   puts "Piece Color: #{character["color"]}"
   puts
   puts "***************************************"
-  puts
 end
 
 def available_characters(character_array)
@@ -19,12 +17,10 @@ def available_characters(character_array)
 end
 
 def room_select(room)
-  puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
   puts
   puts room["name"]
   puts
   puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-  puts
 end
 
 def available_rooms(rooms_array)
@@ -34,10 +30,23 @@ def available_rooms(rooms_array)
   end
 end
 
+def weapon_select(weapon)
+  puts
+  puts weapon["name"]
+  puts
+  puts "+++++++++++++++++++++++++++++++++++++++++"
+end
 
+def available_weapons(weapons_array)
+  weapons_array.each do |weapon_hash|
+    weapon_select(weapon_hash)
+    puts
+  end
+end
   
 system "clear"
 
+puts
 puts "Welcome to Clue the App!"
 puts
 
@@ -47,6 +56,8 @@ while true
   puts "   [2] Pick a character"
   puts "   [3] See possible murder spots"
   puts "   [4] Pick where you think the murder happened"
+  puts "   [5] Look at what they could have used"
+  puts "   [6] What you think they commited the murder with"
   puts "   [quit] Stop"
   puts
 
@@ -70,6 +81,15 @@ while true
     room_id = gets.chomp
     response = HTTP.get("http://localhost:3000/api/rooms/#{room_id}")
     room_select(response.parse)
+  elsif choice == "5"
+    response = HTTP.get("http://localhost:3000/api/weapons")
+    p response.parse
+    available_weapons(response.parse)
+  elsif choice == "6"
+    print "How do think they did it?: "
+    weapon_id = gets.chomp
+    response = HTTP.get("http://localhost:3000/api/weapons/#{weapon_id}")
+    weapon_select(response.parse)
   elsif choice == "quit"
     exit
   end
