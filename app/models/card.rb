@@ -3,5 +3,4 @@ class Card < ApplicationRecord
   validates :designatable_id, uniqueness: { scope: :designatable_type }
   has_many :deckings
   has_many :games, through: :deckings 
-  belongs_to :sheet_info
 end

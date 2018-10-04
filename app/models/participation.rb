@@ -1,7 +1,7 @@
 class Participation < ApplicationRecord
-  has_many :players
-  has_many :games
+  belongs_to :player
+  belongs_to :game
   has_many :deckings
-  has_many :sheet_info
-  many_to_many :characters
+  has_many :sheet_infos
+  belongs_to :character
 end

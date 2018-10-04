@@ -1,0 +1,1 @@
+json.partial! @character, partial: "character", as: :character

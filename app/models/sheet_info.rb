@@ -1,5 +1,5 @@
 class SheetInfo < ApplicationRecord
-  has_many :cards
+  belongs_to :card
   belongs_to :participation
-  belongs_to :players, through: :participation
+  has_one :player, through: :participation
 end
