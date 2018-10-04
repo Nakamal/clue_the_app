@@ -1,0 +1,1 @@
+json.array! @weapons, partial: "weapon", as: :weapon

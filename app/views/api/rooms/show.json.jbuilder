@@ -1,0 +1,1 @@
+json.partial! @room, partial: "room", as: :room
