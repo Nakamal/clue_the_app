@@ -34,7 +34,7 @@ def weapon_select(weapon)
   puts
   puts weapon["name"]
   puts
-  puts "+++++++++++++++++++++++++++++++++++++++++"
+  puts "========================================="
 end
 
 def available_weapons(weapons_array)
