@@ -45,8 +45,9 @@ def available_weapons(weapons_array)
 end
 
 def accusation(info)
-  p info
+  puts
   p "I think it was #{info[:character]} with the #{info[:weapon]} in the #{info[:room]}."
+  puts
 end
   
 system "clear"
@@ -65,8 +66,8 @@ while true
   puts "   [6] What you think they commited the murder with"
   puts
   puts "   [7] Make your accusation"
-  puts "   [quit] Stop"
   puts
+  puts "   [quit] Stop"
 
   choice = gets.chomp
 
@@ -135,7 +136,7 @@ while true
     characters = character_response.parse.map {|character_hash| [character_hash["id"], character_hash["name"]] }.to_h
     weapons = weapons_response.parse.map {|weapon_hash| [weapon_hash["id"], weapon_hash["name"]] }.to_h
     rooms = rooms_response.parse.map {|room_hash| [room_hash["id"], room_hash["name"]] }.to_h
-
+    puts
     accusation(character: characters[character_id], room: rooms[room_id], weapon: weapons[weapon_id])
   elsif choice == "quit"
     exit
