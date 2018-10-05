@@ -43,6 +43,11 @@ def available_weapons(weapons_array)
     puts
   end
 end
+
+def accusation(info)
+  p info
+  p "I think it was #{info[:character]} with the #{info[:weapon]} in the #{info[:room]}."
+end
   
 system "clear"
 
@@ -58,6 +63,8 @@ while true
   puts "   [4] Pick where you think the murder happened"
   puts "   [5] Look at what they could have used"
   puts "   [6] What you think they commited the murder with"
+  puts
+  puts "   [7] Make your accusation"
   puts "   [quit] Stop"
   puts
 
@@ -90,6 +97,46 @@ while true
     weapon_id = gets.chomp
     response = HTTP.get("http://localhost:3000/api/weapons/#{weapon_id}")
     weapon_select(response.parse)
+  elsif choice == "7"
+
+    character_response = HTTP.get("http://localhost:3000/api/characters")
+    puts 
+    puts "Characters"
+    puts "-" * 30
+    character_response.parse.each do |character_hash|
+      puts "#{character_hash["id"]} - #{character_hash["name"]}"
+    end
+    puts 
+    print "Which character id?: "
+    character_id = gets.chomp.to_i
+
+    weapons_response = HTTP.get("http://localhost:3000/api/weapons")
+    puts
+    puts "Weapons"
+    puts "-" * 30
+    weapons_response.parse.each do |weapons_hash|
+      puts "#{weapons_hash["id"]} - #{weapons_hash["name"]}"
+    end
+    puts 
+    print "Which room id?"
+    weapon_id = gets.chomp.to_i
+
+    rooms_response = HTTP.get("http://localhost:3000/api/rooms")
+    puts
+    puts "Rooms"
+    puts "-" * 30
+    rooms_response.parse.each do |rooms_hash|
+      puts "#{rooms_hash["id"]} - #{rooms_hash["name"]}"
+    end
+    puts 
+    print "Which room id?"
+    room_id = gets.chomp.to_i
+
+    characters = character_response.parse.map {|character_hash| [character_hash["id"], character_hash["name"]] }.to_h
+    weapons = weapons_response.parse.map {|weapon_hash| [weapon_hash["id"], weapon_hash["name"]] }.to_h
+    rooms = rooms_response.parse.map {|room_hash| [room_hash["id"], room_hash["name"]] }.to_h
+
+    accusation(character: characters[character_id], room: rooms[room_id], weapon: weapons[weapon_id])
   elsif choice == "quit"
     exit
   end
