@@ -8,5 +8,10 @@ Rails.application.routes.draw do
 
     get "/rooms" => "rooms#index"
     get "/rooms/:id" => "rooms#show"
+
+    post "/games" => "games#create"
+
+    get '/games/:game_id/participations' => 'participations#index'
+    post '/games/:game_id/participations' => 'participations#create'
   end
 end
