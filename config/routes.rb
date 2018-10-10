@@ -13,5 +13,7 @@ Rails.application.routes.draw do
 
     get '/games/:game_id/participations' => 'participations#index'
     post '/games/:game_id/participations' => 'participations#create'
+
+    get '/players' => 'players#index'
   end
 end
