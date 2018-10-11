@@ -1,0 +1,1 @@
+json.chosen_characters @players_character

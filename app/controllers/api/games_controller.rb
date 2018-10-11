@@ -9,4 +9,10 @@ class Api::GamesController < ApplicationController
       render "whaa " * 20 
     end
   end
+
+  def show
+    @game = Game.find(params[:id])
+    render 'show.json.jbuilder'
+  end
 end
+
