@@ -1,9 +1,9 @@
 class Api::GamesController < ApplicationController
   def create
-    game = Game.new(
+    @game = Game.new(
                       code: params[:code]
                     )
-    if game.save
+    if @game.save
       render 'show.json.jbuilder'
     else
       render "whaa " * 20 
