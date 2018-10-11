@@ -13,6 +13,7 @@ class Api::ParticipationsController < ApplicationController
                                          character_id: params[:character_id],
                                          current_location: "start"
                                         )
+   # the app breaks here because the render line does not work even when @participation.save does work
     if @participation.save
       render json: {move_forward: true}
     else

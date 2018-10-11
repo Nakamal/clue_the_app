@@ -8,5 +8,4 @@ class Game < ApplicationRecord
   def available_characters
     Character.all - participations.map {|participation| participation.character }
   end
-
 end
