@@ -1,0 +1,1 @@
+json.array! @participation, partial: "participation", as: :participation

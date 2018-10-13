@@ -1,1 +1,1 @@
-json.chosen_characters @players_character
+json.partial! @player, partial: "player", as: :player

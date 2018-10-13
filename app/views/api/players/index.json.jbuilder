@@ -1,1 +1,1 @@
-json.username @players
+json.array! @players, partial: "player", as: :player
