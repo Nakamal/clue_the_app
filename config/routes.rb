@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     post "/games" => "games#create"
     get "/games/:id" => "games#show"
 
+    patch "/games/:id/start" => "games#start_game"
+
     get '/games/:game_id/participations' => 'participations#index'
     post '/games/:game_id/participations' => 'participations#create'
 
