@@ -8,7 +8,7 @@ class SheetInfo < ApplicationRecord
   def printed_status
     case guess
     when "unknown"
-      ""
+      " "
     when "unconfirmed"
       "?"
     when "confirmed"
