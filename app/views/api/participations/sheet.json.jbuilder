@@ -4,3 +4,7 @@ json.sheet_infos do
     eval("json.#{group_name.downcase.pluralize} { json.array! sheet_infos, partial: 'api/sheet_infos/sheet_info', as: :sheet_info }")
   end
 end
+
+json.cards do
+  json.array! @participation.cards, partial: "api/cards/card", as: :card
+end
