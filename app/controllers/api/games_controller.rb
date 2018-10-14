@@ -21,6 +21,7 @@ class Api::GamesController < ApplicationController
     if params[:initialized_game] == "true"
       puts "game started"
       @game.update(start_game: true)
+      @game.build_deck
     end
 
     if @game.start_game 

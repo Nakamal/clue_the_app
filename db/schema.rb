@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2018_10_13_213222) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "decking", force: :cascade do |t|
+  create_table "deckings", force: :cascade do |t|
     t.string "game_id"
     t.integer "card_id"
     t.integer "participation_id"
