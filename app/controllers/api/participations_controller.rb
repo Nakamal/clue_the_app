@@ -27,3 +27,4 @@ class Api::ParticipationsController < ApplicationController
     render 'sheet.json.jbuilder'
   end
 end
+ 
