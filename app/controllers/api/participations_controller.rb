@@ -21,4 +21,9 @@ class Api::ParticipationsController < ApplicationController
       @message = "You cannot choose that character, please choose a different suspect."
     end
   end
+
+  def sheet
+    @participation = Participation.find(params[:id])
+    render 'sheet.json.jbuilder'
+  end
 end

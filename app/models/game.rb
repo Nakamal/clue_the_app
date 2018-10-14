@@ -14,15 +14,22 @@ class Game < ApplicationRecord
     classified_cards << Character.all.sample.card 
     classified_cards << Weapon.all.sample.card
     classified_cards << Room.all.sample.card
-    p classified_cards
+    
     classified_cards.each do |classified_card|
       Decking.create(card_id: classified_card.id, game_id: id, classified: true)
     end
-
+    
     cards = Card.all - classified_cards
     cards.shuffle!
+
     cards.each_with_index do |card, index|
-      Decking.create(card_id: card.id, game_id: id, participation_id: participations[index % participations.length] )
+      Decking.create(card_id: card.id, game_id: id, participation_id: participations[index % participations.length].id )
+    end
+
+    participations.each do |participation|
+      Card.all.each do |card|
+        SheetInfo.create(card_id: card.id, participation_id: participation.id, guess: "unknown")
+      end
     end
   end
 end

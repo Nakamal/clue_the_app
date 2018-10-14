@@ -14,9 +14,11 @@ Rails.application.routes.draw do
 
     patch "/games/:id/start" => "games#start_game"
 
-    get '/games/:game_id/participations' => 'participations#index'
-    post '/games/:game_id/participations' => 'participations#create'
+    get "/games/:game_id/participations" => "participations#index"
+    post "/games/:game_id/participations" => "participations#create"
 
-    get '/players' => 'players#index'
+    get "/participations/:id/sheet" => "participations#sheet"
+
+    get "/players" => "players#index"
   end
 end
