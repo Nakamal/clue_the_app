@@ -26,5 +26,19 @@ class Api::ParticipationsController < ApplicationController
     @participation = Participation.find(params[:id])
     render 'sheet.json.jbuilder'
   end
+
+  def turn_check
+    @participation = Participation.find(params[:id])
+    render json: {my_turn: @participation.my_turn? }
+  end
+
+  def take_turn
+    @participation = Participation.find(params[:id])
+
+    @participation.change_location(params[:new_location])
+
+    @participation.game.next_turn
+    render json: {message: 'It worked, whats next'}
+  end
 end
  

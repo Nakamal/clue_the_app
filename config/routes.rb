@@ -13,9 +13,12 @@ Rails.application.routes.draw do
     get "/games/:id" => "games#show"
 
     patch "/games/:id/start" => "games#start_game"
+    get "/games/:id/classifieds" => "games#classified"
 
     get "/games/:game_id/participations" => "participations#index"
     post "/games/:game_id/participations" => "participations#create"
+    get "/participations/:id/turn_check" => "participations#turn_check" 
+    patch "/participations/:id/turn" => "participations#take_turn" 
 
     get "/participations/:id/sheet" => "participations#sheet"
 

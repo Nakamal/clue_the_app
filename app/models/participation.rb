@@ -13,4 +13,8 @@ class Participation < ApplicationRecord
   def my_turn?
     game.current_character == character_id
   end
+
+  def change_location(new_location)
+    update(current_location: new_location) if Room.find_by(name: new_location)
+  end
 end
