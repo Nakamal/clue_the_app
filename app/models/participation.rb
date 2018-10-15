@@ -9,4 +9,8 @@ class Participation < ApplicationRecord
   def grouped_sheet_infos
     sheet_infos.group_by {|sheet_info| sheet_info.card.designatable_type }
   end
+
+  def my_turn?
+    game.current_character == character_id
+  end
 end

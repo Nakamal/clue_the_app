@@ -3,6 +3,7 @@ class Game < ApplicationRecord
   has_many :cards, through: :deckings
   has_many :participations
   has_many :players, through: :participations
+  has_many :characters, through: :participations
   has_many :sheet_infos
 
   def available_characters
@@ -31,5 +32,14 @@ class Game < ApplicationRecord
         SheetInfo.create(card_id: card.id, participation_id: participation.id, guess: "unknown")
       end
     end
+  end
+
+  def next_turn
+    character_id_list = characters.order(id: :desc).pluck(:id)
+    update(current_character: character_id_list[character_id_list.index(current_character) - 1])
+  end
+
+  def assign_first_character
+    update(current_character: characters.order(:id).first.id)
   end
 end

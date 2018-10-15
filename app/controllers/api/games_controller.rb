@@ -22,6 +22,7 @@ class Api::GamesController < ApplicationController
       puts "game started"
       @game.update(start_game: true)
       @game.build_deck
+      @game.assign_first_character
     end
 
     if @game.start_game 
