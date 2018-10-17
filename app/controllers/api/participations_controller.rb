@@ -44,14 +44,17 @@ class Api::ParticipationsController < ApplicationController
     if params["accusation"] == "true"
       if [room_object, weapon_object, character_object].sort_by { |e| e.class.to_s } == @participation.game.classified_card_subjects.sort_by { |e| e.class.to_s  } 
         render json: {message: "You've solved the case, you win"}
+        exit
       else
         render json: {message: "You Lose, Good Day Sir!"}
+        exit
       end
     else
       character_id_list = @participation.game.characters.order(id: :desc).pluck(:id)
       position = character_id_list.index(@participation.character_id)
       character_id_list.rotate(position + 1)
 
+      @participation.game.next_turn
       character_id_list.each do |character_id|
         checking_cards = @participation.game.participations.find_by(character_id: character_id).cards.map {|card| card.subject }
         suggested = [room_object, weapon_object, character_object]
@@ -62,7 +65,6 @@ class Api::ParticipationsController < ApplicationController
         end
       end
 
-      @participation.game.next_turn
     end
   end
 end
