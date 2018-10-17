@@ -31,6 +31,7 @@ class Game < ApplicationRecord
       Card.all.each do |card|
         SheetInfo.create(card_id: card.id, participation_id: participation.id, guess: "unknown")
       end
+      participation.setup_detective_sheet
     end
   end
 

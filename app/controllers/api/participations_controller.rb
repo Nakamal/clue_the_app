@@ -18,7 +18,6 @@ class Api::ParticipationsController < ApplicationController
     else
       game = Game.find(params[:game_id])
       @participations = game.participations
-      @message = "You cannot choose that character, please choose a different suspect."
     end
   end
 

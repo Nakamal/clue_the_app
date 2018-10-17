@@ -29,4 +29,8 @@ class Participation < ApplicationRecord
       cross_over = (checking_cards & suggested).sample
     end
   end
+
+  def setup_detective_sheet
+    sheet_infos.where(card_id: cards.ids).update_all(guess: "confirmed")
+  end
 end
