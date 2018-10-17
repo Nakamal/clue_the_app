@@ -48,8 +48,21 @@ class Api::ParticipationsController < ApplicationController
         render json: {message: "You Lose, Good Day Sir!"}
       end
     else
+      character_id_list = @participation.game.characters.order(id: :desc).pluck(:id)
+      position = character_id_list.index(@participation.character_id)
+      character_id_list.rotate(position + 1)
+
+      character_id_list.each do |character_id|
+        checking_cards = @participation.game.participations.find_by(character_id: character_id).cards.map {|card| card.subject }
+        suggested = [room_object, weapon_object, character_object]
+        cross_over = (checking_cards & suggested).sample
+        if cross_over
+          render json: {cross_over: cross_over}
+          return
+        end
+      end
+
       @participation.game.next_turn
-      render json: {message: "It worked, whats next"}
     end
   end
 end
