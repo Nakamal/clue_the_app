@@ -49,21 +49,13 @@ class Api::ParticipationsController < ApplicationController
         exit
       end
     else
-      character_id_list = @participation.game.characters.order(id: :desc).pluck(:id)
-      position = character_id_list.index(@participation.character_id)
-      character_id_list.rotate(position + 1)
-
-      @participation.game.next_turn
-      character_id_list.each do |character_id|
-        checking_cards = @participation.game.participations.find_by(character_id: character_id).cards.map {|card| card.subject }
-        suggested = [room_object, weapon_object, character_object]
-        cross_over = (checking_cards & suggested).sample
-        if cross_over
-          render json: {cross_over: cross_over}
-          return
-        end
-      end
-
+      @found_cross_over = @participation.update_detective_sheet(room_object, weapon_object, character_object)
+      puts "*" * 50
+      p @found_cross_over
+      puts "-" * 50
+      p @participation
+      puts "*" * 50
+      render 'take_turn_suggestion.json.jbuilder'
     end
   end
 end
