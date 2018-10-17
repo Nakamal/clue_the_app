@@ -42,4 +42,8 @@ class Game < ApplicationRecord
   def assign_first_character
     update(current_character: characters.order(:id).first.id)
   end
+
+  def classified_card_subjects
+    deckings.where(classified: true).map { |decking| decking.card.subject }
+  end
 end

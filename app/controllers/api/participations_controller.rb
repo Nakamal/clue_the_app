@@ -32,13 +32,25 @@ class Api::ParticipationsController < ApplicationController
     render json: {my_turn: @participation.my_turn? }
   end
 
+
   def take_turn
+    room_object = Room.find_by(name: params[:new_location] )
+    weapon_object = Weapon.find_by(name: params[:weapon])
+    character_object = Character.find_by(name: params[:character])
     @participation = Participation.find(params[:id])
 
     @participation.change_location(params[:new_location])
 
-    @participation.game.next_turn
-    render json: {message: 'It worked, whats next'}
+    if params["accusation"] == "true"
+      if [room_object, weapon_object, character_object].sort_by { |e| e.class.to_s } == @participation.game.classified_card_subjects.sort_by { |e| e.class.to_s  } 
+        render json: {message: "You've solved the case, you win"}
+      else
+        render json: {message: "You Lose, Good Day Sir!"}
+      end
+    else
+      @participation.game.next_turn
+      render json: {message: "It worked, whats next"}
+    end
   end
 end
  
