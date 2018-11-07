@@ -28,7 +28,8 @@ class Api::ParticipationsController < ApplicationController
 
   def turn_check
     @participation = Participation.find(params[:id])
-    render json: {my_turn: @participation.my_turn? }
+    @participations = @participation.game.participations
+    render 'turn_check.json.jbuilder'
   end
 
 
