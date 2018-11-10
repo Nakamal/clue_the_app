@@ -41,16 +41,9 @@ class Api::ParticipationsController < ApplicationController
 
     @participation.change_location(params[:new_location])
 
-    puts "*" * 50
-    puts "*" * 50
-    puts "*" * 50
-    p params
-    puts "*" * 50
-    puts "*" * 50
-    puts "*" * 50
-
     if params["accusation"] == "true"
       if [room_object, weapon_object, character_object].sort_by { |e| e.class.to_s } == @participation.game.classified_card_subjects.sort_by { |e| e.class.to_s  } 
+        @participation.game.update(complete: true)
         render json: {accusation: true}
       else
         render json: {accusation: false}
