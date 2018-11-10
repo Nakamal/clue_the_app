@@ -17,13 +17,10 @@ class Api::GamesController < ApplicationController
 
   def start_game
     @game = Game.find(params["id"])
-
-    if params[:initialized_game] == "true"
-      puts "game started"
-      @game.update(start_game: true)
-      @game.build_deck
-      @game.assign_first_character
-    end
+    puts "game started"
+    @game.update(start_game: true)
+    @game.build_deck
+    @game.assign_first_character
 
     if @game.start_game 
       puts "happy path"

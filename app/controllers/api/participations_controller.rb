@@ -41,13 +41,19 @@ class Api::ParticipationsController < ApplicationController
 
     @participation.change_location(params[:new_location])
 
+    puts "*" * 50
+    puts "*" * 50
+    puts "*" * 50
+    p params
+    puts "*" * 50
+    puts "*" * 50
+    puts "*" * 50
+
     if params["accusation"] == "true"
       if [room_object, weapon_object, character_object].sort_by { |e| e.class.to_s } == @participation.game.classified_card_subjects.sort_by { |e| e.class.to_s  } 
-        render json: {message: "You've solved the case, you win"}
-        exit
+        render json: {accusation: true}
       else
-        render json: {message: "You Lose, Good Day Sir!"}
-        exit
+        render json: {accusation: false}
       end
     else
       @found_cross_over = @participation.update_detective_sheet(room_object, weapon_object, character_object)
@@ -56,6 +62,8 @@ class Api::ParticipationsController < ApplicationController
       puts "-" * 50
       p @participation
       puts "*" * 50
+      @participation.game.next_turn
+      
       render 'take_turn_suggestion.json.jbuilder'
     end
   end
