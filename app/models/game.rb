@@ -7,7 +7,7 @@ class Game < ApplicationRecord
   has_many :sheet_infos
 
   def available_characters
-    Character.all - participations.map {|participation| participation.character }
+    Character.all.order(:id) - participations.map {|participation| participation.character }
   end
 
   def build_deck

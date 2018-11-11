@@ -7,11 +7,15 @@ class Api::ParticipationsController < ApplicationController
   end
 
   def create
+    character = Character.find(params[:character_id])
+    start_location_array = character.start_location.split(",")
     @participation = Participation.create(
                                          player_id: params[:player_id],
                                          game_id: params[:game_id],
                                          character_id: params[:character_id],
-                                         current_location: "start"
+                                         current_location: "start",
+                                         current_location_x: start_location_array.last,
+                                         current_location_y: start_location_array.first
                                         )
     if @participation.save
       render "show.json.jbuilder"
@@ -39,7 +43,7 @@ class Api::ParticipationsController < ApplicationController
     character_object = Character.find_by(name: params[:character])
     @participation = Participation.find(params[:id])
 
-    @participation.change_location(params[:new_location])
+    @participation.update(current_location_x: params[:current_location_x], current_location_y: params[:current_location_y])
 
     if params["accusation"] == "true"
       if [room_object, weapon_object, character_object].sort_by { |e| e.class.to_s } == @participation.game.classified_card_subjects.sort_by { |e| e.class.to_s  } 
