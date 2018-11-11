@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 2018_11_10_231212) do
     t.integer "current_location_y"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "game_status"
+    t.boolean "game_status", default: true
   end
 
   create_table "players", force: :cascade do |t|

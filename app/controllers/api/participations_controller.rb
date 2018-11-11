@@ -46,6 +46,8 @@ class Api::ParticipationsController < ApplicationController
         @participation.game.update(complete: true)
         render json: {accusation: true}
       else
+        @participation.update(game_status: false)
+        @participation.game.next_turn
         render json: {accusation: false}
       end
     else
