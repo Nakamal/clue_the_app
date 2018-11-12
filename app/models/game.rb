@@ -7,7 +7,7 @@ class Game < ApplicationRecord
   has_many :sheet_infos
 
   def available_characters
-    Character.all.order(:id) - participations.map {|participation| participation.character }
+    Character.all.order(:game_order) - participations.map {|participation| participation.character }
   end
 
   def build_deck
@@ -36,12 +36,12 @@ class Game < ApplicationRecord
   end
 
   def next_turn
-    character_id_list = characters.order(id: :desc).pluck(:id)
+    character_id_list = characters.order(game_order: :desc).pluck(:id)
     update(current_character: character_id_list[character_id_list.index(current_character) - 1])
   end
 
   def assign_first_character
-    update(current_character: characters.order(:id).first.id)
+    update(current_character: characters.order(:game_order).first.id)
   end
 
   def classified_card_subjects

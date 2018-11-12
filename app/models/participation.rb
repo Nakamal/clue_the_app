@@ -19,7 +19,7 @@ class Participation < ApplicationRecord
   end
 
   def suggestions
-    character_id_list = @participation.game.characters.order(id: :desc).pluck(:id)
+    character_id_list = @participation.game.characters.order(game_order: :desc).pluck(:id)
     position = character_id_list.index(@participation.character_id)
     character_id_list.rotate(position + 1)
 
@@ -35,7 +35,7 @@ class Participation < ApplicationRecord
   end
 
   def update_detective_sheet(room_object, weapon_object, character_object)
-    character_id_list = game.characters.order(id: :desc).pluck(:id)
+    character_id_list = game.characters.order(game_order: :desc).pluck(:id)
     position = character_id_list.index(character_id)
     character_id_list.rotate(position + 1)
 
