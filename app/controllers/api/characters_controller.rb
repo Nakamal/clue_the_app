@@ -1,7 +1,7 @@
 class Api::CharactersController < ApplicationController
   
   def index
-    @characters = Character.all
+    @characters = Character.all.order(:game_order)
     render "index.json.jbuilder"
   end
 
