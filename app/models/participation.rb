@@ -1,4 +1,6 @@
 class Participation < ApplicationRecord
+  validates :player_id, uniqueness: { scope: :game_id }
+  validates :character_id, uniqueness: { scope: :game_id }
   belongs_to :player
   belongs_to :game
   has_many :deckings
