@@ -17,16 +17,17 @@ class Api::GamesController < ApplicationController
 
   def start_game
     @game = Game.find(params["id"])
-    puts "game started"
-    @game.build_deck # ==============before
-    @game.assign_first_character
+    
+    unless @game.start_game
+      @game.build_deck # ==============before
+      @game.assign_first_character
+    end
+    
     @game.update(start_game: true) # ====== after
 
     if @game.start_game 
-      puts "happy path"
       render json: {start_game: true}
     else
-      puts "sad path"
       render json: {keep_waiting: true}
     end
   end
