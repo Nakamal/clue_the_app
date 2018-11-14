@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     post "/games/:game_id/participations" => "participations#create"
     get "/participations/:id/turn_check" => "participations#turn_check" 
     patch "/participations/:id/turn" => "participations#take_turn" 
+    post "/participations/:id/next_turn_loser" => 'participations#next_turn_loser'
 
     get "/participations/:id/sheet" => "participations#sheet"
 

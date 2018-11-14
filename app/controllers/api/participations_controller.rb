@@ -58,15 +58,16 @@ class Api::ParticipationsController < ApplicationController
 
     else
       @found_cross_over = @participation.update_detective_sheet(room_object, weapon_object, character_object)
-      puts "*" * 50
-      p @found_cross_over
-      puts "-" * 50
-      p @participation
-      puts "*" * 50
       @participation.game.next_turn
       
       render 'take_turn_suggestion.json.jbuilder'
     end
+  end
+
+  def next_turn_loser
+    @participation = Participation.find(params[:id])
+    @participation.game.next_turn
+    render json: {message: "just sit there and be wrong"}
   end
 end
  
