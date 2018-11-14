@@ -22,6 +22,7 @@ class Api::ParticipationsController < ApplicationController
     else
       game = Game.find(params[:game_id])
       @participations = game.participations
+      render 'index.json.jbuilder'
     end
   end
 
