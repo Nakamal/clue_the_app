@@ -1,5 +1,10 @@
 class Api::GamesController < ApplicationController
   def create
+    Decking.where("created_at < ?", 1.day.ago).destroy_all
+    Participation.where("created_at < ?", 1.day.ago).destroy_all
+    SheetInfo.where("created_at < ?", 1.day.ago).destroy_all
+    Game.where("created_at < ?", 1.day.ago).destroy_all
+
     @game = Game.new(
                       code: params[:code]
                     )
